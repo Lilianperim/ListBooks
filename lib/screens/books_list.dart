@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:list_books/util/db_helper.dart';
-
 import '../models/book.dart';
+import 'form_details.dart';
 
 class BooksList extends StatefulWidget {
   @override
@@ -17,6 +17,10 @@ class BookListState extends State<BooksList> {
     return result.map((book) => Book.fromMap(book)).toList();
   }
 
+  Future<void> _refreshBooks() async {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,8 +34,7 @@ class BookListState extends State<BooksList> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(
-                child: Text('Erro ao carregar os livros: ${snapshot.error}'));
+            return Center(child: Text('Erro ao carregar os livros: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(child: Text('Nenhum livro encontrado'));
           } else {
@@ -46,7 +49,20 @@ class BookListState extends State<BooksList> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {},
+        onPressed: () async {
+          bool? result = await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const BookFormOrDetailsScreen(
+                isDetails: false,
+                book: null,
+              ),
+            ),
+          );
+          if (result == true) {
+            _refreshBooks();
+          }
+        },
         tooltip: "Adicionar novo livro",
         child: const Icon(Icons.add),
       ),
@@ -79,7 +95,20 @@ class BookListState extends State<BooksList> {
           ],
         ),
         subtitle: Text(book.genre),
-        onTap: () async {},
+        onTap: () async {
+          bool? result = await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => BookFormOrDetailsScreen(
+                isDetails: true,
+                book: book,
+              ),
+            ),
+          );
+          if (result == true) {
+            _refreshBooks();
+          }
+        },
       ),
     );
   }
