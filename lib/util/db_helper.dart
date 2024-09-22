@@ -4,6 +4,8 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../models/book.dart';
+
 class DBHelper {
   static final DBHelper instance = DBHelper._internal();
 
@@ -42,5 +44,16 @@ class DBHelper {
   Future<List<Map<String, dynamic>>> getBooks() async {
     Database db = await this.db;
     return await db.rawQuery('SELECT * FROM $tblBook');
+  }
+
+  Future<int> insertBook(Book book) async {
+    Database db = await this.db;
+    return await db.insert(tblBook, book.toMap());
+  }
+
+  Future<int> deleteBook(int id) async {
+    var dbClient = await db;
+    var result = await dbClient.delete("book", where: 'id = ?', whereArgs: [id]);
+    return result;
   }
 }
