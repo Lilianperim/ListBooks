@@ -1,5 +1,5 @@
 class Book {
-  int? _id;
+  String? _id;
   String _title;
   String _genre;
   String _author;
@@ -9,7 +9,7 @@ class Book {
         _genre = genre,
         _author = author;
 
-  int? get id => _id;
+  String? get id => _id;
 
   String get title => _title;
 
@@ -44,9 +44,9 @@ class Book {
     return map;
   }
 
-  Book.fromMap(dynamic o)
-      : _id = o["id"],
-        _title = o["title"],
-        _genre = o['genre'],
-        _author = o['author'];
+  Book.fromMap(Map<String, dynamic> data, String id)
+      : _id = id,
+        _title = data["title"],
+        _genre = data['genre'],
+        _author = data['author'];
 }

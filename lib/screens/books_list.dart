@@ -12,9 +12,8 @@ class BookListState extends State<BooksList> {
   final DBHelper helper = DBHelper();
 
   Future<List<Book>> _getBooks() async {
-    await helper.initializeDb();
-    List<Map<String, dynamic>> result = await helper.getBooks();
-    return result.map((book) => Book.fromMap(book)).toList();
+    List<Book> result = await helper.getBooks();
+    return result;
   }
 
   Future<void> _refreshBooks() async {
@@ -34,7 +33,8 @@ class BookListState extends State<BooksList> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text('Erro ao carregar os livros: ${snapshot.error}'));
+            return Center(
+                child: Text('Erro ao carregar os livros: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(child: Text('Nenhum livro encontrado'));
           } else {

@@ -86,8 +86,7 @@ class _BookFormOrDetailsScreenState extends State<BookFormOrDetailsScreen> {
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
       backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      title:
-          Text(widget.isDetails ? 'Detalhes' : 'Adicionar Livro'),
+      title: Text(widget.isDetails ? 'Detalhes' : 'Adicionar Livro'),
       actions: widget.isDetails
           ? [
               IconButton(
@@ -173,12 +172,11 @@ class _BookFormOrDetailsScreenState extends State<BookFormOrDetailsScreen> {
   void _deleteBook() async {
     if (widget.book != null) {
       DBHelper helper = DBHelper();
-      int result = await helper.deleteBook(widget.book!.id!);
-
-      if (result > 0) {
+      try {
+        await helper.deleteBook(widget.book!.id!);
         Navigator.pop(context, true);
         _showSnackBar('Livro excluído com sucesso!');
-      } else {
+      } catch (e) {
         _showSnackBar('Erro ao excluir o livro.');
       }
     }
@@ -192,12 +190,11 @@ class _BookFormOrDetailsScreenState extends State<BookFormOrDetailsScreen> {
     );
 
     DBHelper helper = DBHelper();
-    int result = await helper.insertBook(newBook);
-
-    if (result > 0) {
+    try {
+      await helper.insertBook(newBook);
       Navigator.pop(context, true);
       _showSnackBar('Livro salvo com sucesso!');
-    } else {
+    } catch (e) {
       _showSnackBar('Erro ao salvar o livro.');
     }
   }
