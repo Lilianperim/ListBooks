@@ -2,6 +2,7 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
+    id 'com.google.gms.google-services' version '4.3.15'
 }
 
 def localProperties = new Properties()
@@ -20,6 +21,11 @@ if (flutterVersionCode == null) {
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
     flutterVersionName = '1.0'
+}
+
+def flutterminSdkVersion = localProperties.getProperty('flutter.minSdkVersion')
+if (flutterminSdkVersion == null) {
+    flutterminSdkVersion = 21
 }
 
 android {
@@ -45,7 +51,7 @@ android {
         applicationId "com.example.list_books"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion flutterminSdkVersion
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

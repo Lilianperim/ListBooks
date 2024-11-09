@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "500683977638",
+    "project_id": "listbooks-70e28",
+    "storage_bucket": "listbooks-70e28.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:500683977638:android:633c634714fd8cb76f1567",
+        "android_client_info": {
+          "package_name": "com.example.list_books"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3YhNzYwR3PAQgs8ETp2IUiCfTtqt4Qtc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
